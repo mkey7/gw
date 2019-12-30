@@ -163,7 +163,15 @@ def Inverse(data, M,len_para):  # 求逆，可用pow（）代替
 
     return tempA
 
-def Verify(Sign, E, PA,len_para):  # 验签函数，Sign签名r||s，E消息hash，PA公钥
+def Verify(Sign, E, PA,len_para ,Hexstr = 0):  # 验签函数，Sign签名r||s，E消息hash，PA公钥
+    if Hexstr:
+        e = int(E, 16) # 输入消息本身是16进制字符串
+    else:
+        E = E.encode('utf-8')
+        E = E.hex() # 消息转化为16进制字符串
+        e = int(E, 16)
+
+    #print('E:'+str(e))
     r = int(Sign[0:len_para], 16)
     s = int(Sign[len_para:2*len_para], 16)
     e = int(E, 16)
@@ -193,8 +201,9 @@ def Sign(E, DA, K,len_para,Hexstr = 0):  # 签名函数, E消息的hash，DA私�
         E = E.encode('utf-8')
         E = E.hex() # 消息转化为16进制字符串
         e = int(E, 16)
-
+    #print('E:'+str(e))
     d = int(DA, 16)
+
     k = int(K, 16)
 
     P1 = kG(k, sm2_G,len_para)
@@ -278,7 +287,7 @@ if __name__ == '__main__':
     # d = '58892B807074F53FBF67288A1DFAA1AC313455FE60355AFD'
     Pa = kG(int(d, 16), sm2_G,len_para)
     Sig = Sign(e,d,k,len_para,1)
-    print(Verify(Sig,e,Pa,len_para))
+    print(Verify(Sig,e,Pa,len_para,1))
     print(Pa)
     e = "你好"
     print('M = %s' % e)
