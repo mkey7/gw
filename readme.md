@@ -1,2 +1,2 @@
 # Monkeyhack的日常折腾
-> 博客网址：http://monkeyhack.top
+> 博客网址：http://m0nkeyhack.blogspot.com/
